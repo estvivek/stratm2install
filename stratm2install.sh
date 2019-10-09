@@ -49,6 +49,7 @@ echo "Thanks, let me do some stuff now."
 _dbuser=$(cat cred.log | grep Username | awk '{print $3}' | cut -c3- | rev | cut -c4- | rev)
 _dbname=$(cat cred.log | grep Username | awk '{print $7}' | cut -c3- | rev | cut -c4- | rev)
 _dbpass=$(cat cred.log | grep Username | awk '{print $14}' | cut -c3- | rev | cut -c4- | rev)
+rm cred.log
 _adminpass=`tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c12`
 _adminuri="admin_"`tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c8`
 
@@ -85,7 +86,5 @@ php bin/magento setup:config:set --http-cache-hosts=varnish
 # Fail Safe cache clear and autoscaling reinit (in cases of reinstall)
 /usr/share/stratus/cli cache.all.clear
 /usr/share/stratus/cli autoscaling.reinit
-
-rm cred.log
 
 printf "\n\nHello,\n\nYour installation is ready for use:\nURL: $_url\n\nAdmin URI: $_url$_adminuri\nAdmin User: admin\nAdmin Pass: $_adminpass\nAdmin EMail: $_adminemail\nIf you need anything else or run into any issues, feel free to let us know.\n\n\n"
