@@ -50,7 +50,7 @@ _dbuser=$(cat cred.log | grep Username | awk '{print $3}' | cut -c3- | rev | cut
 _dbname=$(cat cred.log | grep Username | awk '{print $7}' | cut -c3- | rev | cut -c4- | rev)
 _dbpass=$(cat cred.log | grep Username | awk '{print $14}' | cut -c3- | rev | cut -c4- | rev)
 rm cred.log
-_adminpass=`tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c12`
+_adminpass="m4rk"`tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c12`
 _adminuri="admin_"`tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c8`
 
 printf 'y\n' | mysqladmin -h mysql -u $_dbuser -p$_dbpass DROP $_dbname
