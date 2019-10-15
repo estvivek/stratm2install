@@ -92,4 +92,4 @@ php bin/magento setup:config:set --http-cache-hosts=varnish
 /usr/share/stratus/cli cache.all.clear
 /usr/share/stratus/cli autoscaling.reinit
 
-printf "\n\nHello,\n\nYour installation is ready for use:\nURL: $_url\n\nAdmin URI: $_url$_adminuri\nAdmin User: admin\nAdmin Pass: $_adminpass\nAdmin EMail: $_adminemail\nIf you need anything else or run into any issues, feel free to let us know.\n\n\n"
+printf "\n\nHello,\n\nYour installation is ready for use:\nURL: $_url\n\nAdmin URI: $_url$_adminuri\nAdmin User: admin\nAdmin Pass: $_adminpass\nAdmin EMail: $_adminemail\n\nIf you need anything else or run into any issues, feel free to let us know.\n\n\n"
