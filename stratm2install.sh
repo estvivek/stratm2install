@@ -46,9 +46,9 @@ read _adminemail
 echo "Thanks, let me do some stuff now."
 
 # Random joke time...
-echo "\nEnjoy a random dad joke while you wait...\n"
+printf "\n\nEnjoy a random dad joke while you wait...\n"
 curl -H "Accept: text/plain" https://icanhazdadjoke.com/
-echo "\n"
+printf "\n\n"
 
 /usr/share/stratus/cli database.config > cred.log 2>&1
 _dbuser=$(cat cred.log | grep Username | awk '{print $3}' | cut -c3- | rev | cut -c4- | rev)
