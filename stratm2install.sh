@@ -46,7 +46,7 @@ read _adminemail
 echo "Thanks, let me do some stuff now."
 
 # Random joke time...
-printf "\n\nEnjoy a random dad joke while you wait...\n"
+printf "\nEnjoy a random dad joke while you wait...\n"
 curl -H "Accept: text/plain" https://icanhazdadjoke.com/
 printf "\n\n"
 
