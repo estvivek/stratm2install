@@ -2,7 +2,7 @@
 # M2 installer for Stratus (Includes MageMojo Cron, Varnish, and Redis)
 # A Mark Muyskens production.... with some base stuff stolen from Jwise.... and ok, I stole the Stratus CLI grep/awk stuff from Jackie...
 
-echo "Let's get to installing M2.... You best have Varnish and Redis enabled or you'll be crying when this is over.... "
+echo "Let's get to installing M2.... You best have Redis enabled or you'll be crying when this is over.... "
 
 #PHP 5 needs to die.
 _php5=$(php -v|grep --only-matching --perl-regexp "5\.\\d+\.\\d+" -m1);
@@ -95,10 +95,18 @@ php bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-ser
 php bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=0 --page-cache-redis-port=6379
 php bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis-session --session-save-redis-log-level=3 --session-save-redis-db=0 --session-save-redis-port=6380
 
-echo "Enabling Varnish"
+
+#Checking for Varnish
+_varnishcheck=$(curl -X 'PURGE' -H'X-Magento-Tags-Pattern: .*' varnish 2>/dev/null);
+case "$_varnishcheck" in
+*Varnish*)
+echo "\nVarnish has been detected and will be configured."
 php bin/magento config:set --scope=default --scope-code=0 system/full_page_cache/caching_application 2
 php bin/magento config:set --scope=default --scope-code=0 system/full_page_cache/varnish/backend_host nginx
 php bin/magento setup:config:set --http-cache-hosts=varnish
+;;
+*) echo "\nVarnish was NOT detected and will be SKIPPED.\n"
+esac
 
 # Fail Safe cache clear and autoscaling reinit (in cases of reinstall)
 /usr/share/stratus/cli cache.all.clear
