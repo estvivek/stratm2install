@@ -4,6 +4,18 @@
 
 echo "Let's get to installing M2.... You best have Varnish and Redis enabled or you'll be crying when this is over.... "
 
+#PHP 5 needs to die.
+_php5=$(php -v|grep --only-matching --perl-regexp "5\.\\d+\.\\d+" -m1);
+if [ -z "$_php5" ]
+then
+        echo "\nDetecting PHP - OK\n" 
+        php -v
+	echo "\n"
+else
+        echo  "You're running PHP 5 - FIX IT NOW!"
+        exit
+fi
+
 echo  "What's the URL?"
 read _url
 
